@@ -1,0 +1,116 @@
+/*Author:  Hunter Esler
+ *  *Course:  CSCI 3080
+ *   *Lab number: Lab 2
+ *    *Purpose: This lab will take a matrix and calculate the inverse of that matrix
+ *    		 *Due date: March 1, 2018
+ *    		 */
+
+//Includes
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+//Required Main function
+int main()
+{
+	//Incrementing variables for loops
+	int i, j, k, l;
+
+	double d;//divisor/manipulator
+	
+
+	//Dimensions of first matrix
+	int matrix_size;
+	
+	//Matrices, max 10x10 input
+	double matrix[10][20];
+
+	//Matrix A row and column size input from user
+	cout << "input size of matrix\n";
+	cin >> matrix_size;
+
+	//std::setprecision(4);
+
+	//Matrix inputs from user
+	cout << "input matrix\n";
+	for (i = 0; i < matrix_size; i++) {
+		for (j = 0; j < (matrix_size*2); j++) {
+			if (j < matrix_size) {
+				cin >> matrix[i][j];
+			}
+			else if (i==(j-matrix_size))
+				matrix[i][j] = 1.0;
+			else
+				matrix[i][j] = 0.0;
+		}
+	}
+
+	cout << endl << "Input matrix:\n";
+	for (i = 0; i < matrix_size; i++) {
+		for (j = 0; j < (matrix_size * 2); j++) {
+			cout << std::setw(6) << matrix[i][j] << " ";
+			if (j==(matrix_size-1))
+				cout <<"   :";
+		}
+		cout << endl;
+	}
+	
+	cout << endl;
+
+	for (i = 0; i < matrix_size; i++) {
+
+		//cout << "div ";
+		d = matrix[i][i];
+		//cout << d << endl;
+		for (k = 0; k < (matrix_size*2); k++) {
+			matrix[i][k]/=d;
+		}
+		/*
+		for (l = 0; l < matrix_size; l++) {
+			for (j = 0; j < (matrix_size * 2); j++) {
+				cout << std::setw(6) << matrix[l][j] << " ";
+			}
+			cout << endl;
+		}
+		*/
+
+
+		for (j = 0; j < (matrix_size); j++) {
+			if (j != i)
+			{
+				d = matrix[j][i]*-1;
+				for (k = 0; k < (matrix_size*2); k++)
+				{
+					matrix[j][k] += (matrix[i][k]*d);
+
+				}	
+			}
+		
+		}
+/*
+		cout << "add\n";
+
+		for (l = 0; l < matrix_size; l++) {
+			for (j = 0; j < (matrix_size * 2); j++) {
+				cout << std::setw(6) << matrix[l][j] << " ";
+			}
+			cout << endl;
+		}
+		*/
+	}
+	cout <<endl<< "Inverse of matrix:\n";
+	for (i = 0; i < matrix_size; i++) {
+		for (j = 0; j < (matrix_size * 2); j++) {
+			cout << std::setw(6) << std::setprecision(4) <<  matrix[i][j] << " ";
+			if (j==(matrix_size-1))
+				cout << "   :";
+		}
+		cout << endl;
+	}
+
+	
+	return 0;
+
+}
+
